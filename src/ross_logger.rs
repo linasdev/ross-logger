@@ -47,10 +47,7 @@ pub struct RossLogger {
 
 impl RossLogger {
     pub fn new(log_level: RossLogLevel, itm: ITM) -> Self {
-        RossLogger {
-            log_level,
-            itm
-        }
+        RossLogger { log_level, itm }
     }
 
     pub fn change_log_level(&mut self, log_level: RossLogLevel) {
@@ -66,7 +63,9 @@ impl RossLogger {
     }
 
     pub fn log_warning(&mut self, message: &str) {
-        if matches!(self.log_level, RossLogLevel::Debug) || matches!(self.log_level, RossLogLevel::Warning) {
+        if matches!(self.log_level, RossLogLevel::Debug)
+            || matches!(self.log_level, RossLogLevel::Warning)
+        {
             self.log("[DEBUG] ");
             self.log(message);
             self.log("\r\n");
