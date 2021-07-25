@@ -9,3 +9,8 @@ repository = "https://github.com/linasdev/ross-logger"
 readme = "README.md"
 
 [dependencies]
+cortex-m = "0.7.2"
+
+[dependencies.stm32f1xx-hal-bxcan]
+version = "0.8.0"
+features = ["rt", "stm32f103", "medium"]
