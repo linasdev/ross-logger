@@ -9,7 +9,7 @@ macro_rules! log_debug {
         $logger.log_debug($fmt);
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        $logger.log_debug(format!($fmt, $($arg)*));
+        $logger.log_debug(&format!($fmt, $($arg)*));
     };
 }
 
@@ -19,7 +19,7 @@ macro_rules! log_warning {
         $logger.log_warning($fmt);
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        $logger.log_warning(format!($fmt, $($arg)*));
+        $logger.log_warning(&format!($fmt, $($arg)*));
     };
 }
 
@@ -29,7 +29,7 @@ macro_rules! log_error {
         $logger.log_error($fmt);
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        $logger.log_error(format!($fmt, $($arg)*));
+        $logger.log_error(&format!($fmt, $($arg)*));
     };
 }
 
