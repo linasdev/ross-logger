@@ -1,6 +1,5 @@
 extern crate alloc;
 
-use alloc::fmt::format;
 use cortex_m::iprint;
 use stm32f1xx_hal_bxcan::pac::ITM;
 
