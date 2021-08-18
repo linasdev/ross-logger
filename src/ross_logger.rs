@@ -6,40 +6,43 @@ use stm32f1xx_hal_bxcan::pac::ITM;
 #[macro_export]
 macro_rules! log_debug {
     ($logger:expr, $fmt:expr) => {
-        get_from_cell!($logger).log_debug($fmt);
+        unsafe {
+            *$cell.get().log_debug($fmt);
+        }
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        get_from_cell!($logger).log_debug(&format!($fmt, $($arg)*));
+        unsafe {
+            *$cell.get().log_debug(&format!($fmt, $($arg)*));
+        }
     };
 }
 
 #[macro_export]
 macro_rules! log_warning {
     ($logger:expr, $fmt:expr) => {
-        get_from_cell!($logger).log_warning($fmt);
+        unsafe {
+            *$cell.get().log_warning($fmt);
+        }
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        get_from_cell!($logger).log_warning(&format!($fmt, $($arg)*));
+        unsafe {
+            *$cell.get().log_warning(&format!($fmt, $($arg)*));
+        }
     };
 }
 
 #[macro_export]
 macro_rules! log_error {
     ($logger:expr, $fmt:expr) => {
-        get_from_cell!($logger).log_error($fmt);
+        unsafe {
+            *$cell.get().log_error($fmt);
+        }
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        get_from_cell!($logger).log_error(&format!($fmt, $($arg)*));
-    };
-}
-
-#[allow(unused_macros)]
-macro_rules! get_from_cell {
-    ($cell:expr) => {
         unsafe {
-            &mut *$cell.get()
+            *$cell.get().log_error(&format!($fmt, $($arg)*));
         }
-    }
+    };
 }
 
 pub enum RossLogLevel {
