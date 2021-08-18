@@ -6,30 +6,42 @@ use stm32f1xx_hal_bxcan::pac::ITM;
 #[macro_export]
 macro_rules! log_debug {
     ($logger:expr, $fmt:expr) => {
-        $logger.log_debug($fmt);
+        free(|cs| => {
+            $logger.borrow(cs).log_debug($fmt);
+        });
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        $logger.log_debug(&format!($fmt, $($arg)*));
+        free(|cs| => {
+            $logger.borrow(cs).log_debug(&format!($fmt, $($arg)*));
+        });
     };
 }
 
 #[macro_export]
 macro_rules! log_warning {
     ($logger:expr, $fmt:expr) => {
-        $logger.log_warning($fmt);
+        free(|cs| => {
+            $logger.borrow(cs).log_warning($fmt);
+        });
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        $logger.log_warning(&format!($fmt, $($arg)*));
+        free(|cs| => {
+            $logger.borrow(cs).log_warning(&format!($fmt, $($arg)*));
+        });
     };
 }
 
 #[macro_export]
 macro_rules! log_error {
     ($logger:expr, $fmt:expr) => {
-        $logger.log_error($fmt);
+        free(|cs| => {
+            $logger.borrow(cs).log_error($fmt);
+        });
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
-        $logger.log_error(&format!($fmt, $($arg)*));
+        free(|cs| => {
+            $logger.borrow(cs).log_error(&format!($fmt, $($arg)*));
+        });
     };
 }
 
