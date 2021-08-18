@@ -7,12 +7,12 @@ use stm32f1xx_hal_bxcan::pac::ITM;
 macro_rules! log_debug {
     ($logger:expr, $fmt:expr) => {
         unsafe {
-            *$cell.get().log_debug($fmt);
+            *$logger.get().log_debug($fmt);
         }
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
         unsafe {
-            *$cell.get().log_debug(&format!($fmt, $($arg)*));
+            *$logger.get().log_debug(&format!($fmt, $($arg)*));
         }
     };
 }
@@ -21,12 +21,12 @@ macro_rules! log_debug {
 macro_rules! log_warning {
     ($logger:expr, $fmt:expr) => {
         unsafe {
-            *$cell.get().log_warning($fmt);
+            *$logger.get().log_warning($fmt);
         }
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
         unsafe {
-            *$cell.get().log_warning(&format!($fmt, $($arg)*));
+            *$logger.get().log_warning(&format!($fmt, $($arg)*));
         }
     };
 }
@@ -35,12 +35,12 @@ macro_rules! log_warning {
 macro_rules! log_error {
     ($logger:expr, $fmt:expr) => {
         unsafe {
-            *$cell.get().log_error($fmt);
+            *$logger.get().log_error($fmt);
         }
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
         unsafe {
-            *$cell.get().log_error(&format!($fmt, $($arg)*));
+            *$logger.get().log_error(&format!($fmt, $($arg)*));
         }
     };
 }
