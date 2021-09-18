@@ -45,28 +45,28 @@ macro_rules! log_error {
     };
 }
 
-pub enum RossLogLevel {
+pub enum LogLevel {
     Debug,
     Warning,
     Error,
 }
 
-pub struct RossLogger {
-    log_level: RossLogLevel,
+pub struct Logger {
+    log_level: LogLevel,
     itm: ITM,
 }
 
-impl RossLogger {
-    pub fn new(log_level: RossLogLevel, itm: ITM) -> Self {
-        RossLogger { log_level, itm }
+impl Logger {
+    pub fn new(log_level: LogLevel, itm: ITM) -> Self {
+        Logger { log_level, itm }
     }
 
-    pub fn change_log_level(&mut self, log_level: RossLogLevel) {
+    pub fn change_log_level(&mut self, log_level: LogLevel) {
         self.log_level = log_level;
     }
 
     pub fn log_debug(&mut self, message: &str) {
-        if matches!(self.log_level, RossLogLevel::Debug) {
+        if matches!(self.log_level, LogLevel::Debug) {
             self.log("[DEBUG] ");
             self.log(message);
             self.log("\r\n");
@@ -74,8 +74,8 @@ impl RossLogger {
     }
 
     pub fn log_warning(&mut self, message: &str) {
-        if matches!(self.log_level, RossLogLevel::Debug)
-            || matches!(self.log_level, RossLogLevel::Warning)
+        if matches!(self.log_level, LogLevel::Debug)
+            || matches!(self.log_level, LogLevel::Warning)
         {
             self.log("[DEBUG] ");
             self.log(message);
