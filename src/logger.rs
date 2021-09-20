@@ -77,7 +77,7 @@ impl Logger {
         if matches!(self.log_level, LogLevel::Debug)
             || matches!(self.log_level, LogLevel::Warning)
         {
-            self.log("[DEBUG] ");
+            self.log("[WARNING] ");
             self.log(message);
             self.log("\r\n");
         }
