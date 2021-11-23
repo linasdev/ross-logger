@@ -1,7 +1,5 @@
 #![no_std]
 
-extern crate alloc;
-
 use cortex_m::iprint;
 use stm32f1xx_hal_bxcan::pac::ITM;
 
@@ -14,7 +12,8 @@ macro_rules! log_debug {
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
         unsafe {
-            $logger.borrow_mut().log_debug(&format!($fmt, $($arg)*));
+            extern crate alloc;
+            $logger.borrow_mut().log_debug(&alloc::format!($fmt, $($arg)*));
         }
     };
 }
@@ -28,7 +27,8 @@ macro_rules! log_info {
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
         unsafe {
-            $logger.borrow_mut().log_info(&format!($fmt, $($arg)*));
+            extern crate alloc;
+            $logger.borrow_mut().log_info(&alloc::format!($fmt, $($arg)*));
         }
     };
 }
@@ -42,7 +42,8 @@ macro_rules! log_warning {
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
         unsafe {
-            $logger.borrow_mut().log_warning(&format!($fmt, $($arg)*));
+            extern crate alloc;
+            $logger.borrow_mut().log_warning(&alloc::format!($fmt, $($arg)*));
         }
     };
 }
@@ -56,7 +57,8 @@ macro_rules! log_error {
     };
     ($logger:expr, $fmt:expr, $($arg:tt)*) => {
         unsafe {
-            $logger.borrow_mut().log_error(&format!($fmt, $($arg)*));
+            extern crate alloc;
+            $logger.borrow_mut().log_error(&alloc::format!($fmt, $($arg)*));
         }
     };
 }
