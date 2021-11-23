@@ -74,8 +74,7 @@ impl Logger {
     }
 
     pub fn log_warning(&mut self, message: &str) {
-        if matches!(self.log_level, LogLevel::Debug)
-            || matches!(self.log_level, LogLevel::Warning)
+        if matches!(self.log_level, LogLevel::Debug) || matches!(self.log_level, LogLevel::Warning)
         {
             self.log("[WARNING] ");
             self.log(message);
