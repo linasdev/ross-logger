@@ -18,6 +18,20 @@ macro_rules! log_debug {
 }
 
 #[macro_export]
+macro_rules! log_info {
+    ($logger:expr, $fmt:expr) => {
+        unsafe {
+            $logger.borrow_mut().log_info($fmt);
+        }
+    };
+    ($logger:expr, $fmt:expr, $($arg:tt)*) => {
+        unsafe {
+            $logger.borrow_mut().log_info(&format!($fmt, $($arg)*));
+        }
+    };
+}
+
+#[macro_export]
 macro_rules! log_warning {
     ($logger:expr, $fmt:expr) => {
         unsafe {
@@ -47,6 +61,7 @@ macro_rules! log_error {
 
 pub enum LogLevel {
     Debug,
+    Info,
     Warning,
     Error,
 }
@@ -73,8 +88,18 @@ impl Logger {
         }
     }
 
+    pub fn log_info(&mut self, message: &str) {
+        if matches!(self.log_level, LogLevel::Debug) || matches!(self.log_level, LogLevel::Info) {
+            self.log("[INFO] ");
+            self.log(message);
+            self.log("\r\n");
+        }
+    }
+
     pub fn log_warning(&mut self, message: &str) {
-        if matches!(self.log_level, LogLevel::Debug) || matches!(self.log_level, LogLevel::Warning)
+        if matches!(self.log_level, LogLevel::Debug)
+            || matches!(self.log_level, LogLevel::Info)
+            || matches!(self.log_level, LogLevel::Warning)
         {
             self.log("[WARNING] ");
             self.log(message);
