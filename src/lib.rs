@@ -2,6 +2,7 @@
 
 use cortex_m::iprint;
 use stm32f1xx_hal_bxcan::pac::ITM;
+use stm32f1xx_hal_bxcan::pac::DCB;
 
 #[macro_export]
 macro_rules! log_debug {
@@ -118,6 +119,11 @@ impl Logger {
     }
 
     fn log(&mut self, message: &str) {
+        // If no debugger is attached, ITM hangs when trying to print
+        if !DCB::is_debugger_attached() {
+            return;
+        }
+
         iprint!(&mut self.itm.stim[0], message);
     }
 }
